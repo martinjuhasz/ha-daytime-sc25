@@ -1,0 +1,70 @@
+save_favorite:
+  target:
+    entity:
+      integration: daytime_sc25
+      domain: select
+  fields:
+    slot:
+      required: true
+      selector:
+        number:
+          min: 1
+          max: 10
+    name:
+      required: true
+      selector:
+        text:
+    channels:
+      selector:
+        object:
+
+delete_favorite:
+  target:
+    entity:
+      integration: daytime_sc25
+      domain: select
+  fields:
+    slot:
+      required: true
+      selector:
+        number:
+          min: 1
+          max: 10
+
+set_daycycle_curve:
+  target:
+    entity:
+      integration: daytime_sc25
+      domain: select
+  fields:
+    points:
+      required: true
+      example: "[[0,0,0,0,0],[480,0,0,0,0],[540,100,80,60,40],[1200,100,80,60,40],[1260,0,0,0,0],[1440,0,0,0,0]]"
+      selector:
+        object:
+
+preview_daycycle:
+  target:
+    entity:
+      integration: daytime_sc25
+      domain: select
+  fields:
+    seconds:
+      default: 80
+      selector:
+        number:
+          min: 10
+          max: 600
+          unit_of_measurement: s
+    start:
+      default: 0
+      selector:
+        number:
+          min: 0
+          max: 1440
+    end:
+      default: 1439
+      selector:
+        number:
+          min: 0
+          max: 1440

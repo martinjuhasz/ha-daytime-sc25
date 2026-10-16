@@ -1,0 +1,26 @@
+[project]
+name = "ha-daytime-sc25"
+version = "0.3.3"
+description = "Home Assistant integration for the daytime Smart Control SC25 aquarium light controller"
+license = "MIT"
+requires-python = ">=3.13"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF"]
+ignore = [
+  "E501",   # long lines are left to the formatter
+  "RUF001", # German UI strings contain typographic characters on purpose
+  "RUF012", # Home Assistant entities declare _attr_* defaults as class attributes
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["custom_components"]
+force-sort-within-sections = true

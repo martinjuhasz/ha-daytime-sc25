@@ -1,0 +1,306 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "description": "IP address or host name of the SC25.",
+        "data": {
+          "host": "Host"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not connect to the controller."
+    },
+    "abort": {
+      "already_configured": "This controller is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "manual_fallback_minutes": "Return to daycycle after manual change (minutes, 0 = never)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "light": {
+      "lamp": {
+        "name": "Lamp"
+      },
+      "channel_white": {
+        "name": "White"
+      },
+      "channel_blue": {
+        "name": "Blue"
+      },
+      "channel_red": {
+        "name": "Red"
+      },
+      "channel_green": {
+        "name": "Green"
+      }
+    },
+    "select": {
+      "mode": {
+        "name": "Mode",
+        "state": {
+          "daycycle": "Daycycle",
+          "manual": "Manual"
+        }
+      },
+      "favorite": {
+        "name": "Favorite"
+      }
+    },
+    "switch": {
+      "moonlight": {
+        "name": "Moonlight"
+      },
+      "clouds": {
+        "name": "Clouds"
+      },
+      "acclimation": {
+        "name": "Acclimation"
+      },
+      "acclimation_pause": {
+        "name": "Acclimation paused"
+      },
+      "moon_cycle": {
+        "name": "Moon phases"
+      },
+      "moon_individual_times": {
+        "name": "Moonlight custom times"
+      },
+      "moon_white": {
+        "name": "Moonlight white"
+      },
+      "moon_blue": {
+        "name": "Moonlight blue"
+      },
+      "moon_red": {
+        "name": "Moonlight red"
+      },
+      "moon_green": {
+        "name": "Moonlight green"
+      },
+      "individual_intensities": {
+        "name": "Brightness per colour"
+      },
+      "sun_glow": {
+        "name": "Sunrise/sunset glow"
+      },
+      "midday_dimming": {
+        "name": "Midday dimming"
+      }
+    },
+    "number": {
+      "sunrise_duration": {
+        "name": "Sunrise duration"
+      },
+      "sunset_duration": {
+        "name": "Sunset duration"
+      },
+      "day_intensity": {
+        "name": "Day brightness"
+      },
+      "day_intensity_white": {
+        "name": "Day brightness white"
+      },
+      "day_intensity_blue": {
+        "name": "Day brightness blue"
+      },
+      "day_intensity_red": {
+        "name": "Day brightness red"
+      },
+      "day_intensity_green": {
+        "name": "Day brightness green"
+      },
+      "midday_intensity": {
+        "name": "Midday brightness"
+      },
+      "sunrise_glow_duration": {
+        "name": "Sunrise glow duration"
+      },
+      "sunrise_glow_intensity": {
+        "name": "Sunrise glow strength"
+      },
+      "sunset_glow_duration": {
+        "name": "Sunset glow duration"
+      },
+      "sunset_glow_intensity": {
+        "name": "Sunset glow strength"
+      },
+      "moon_max": {
+        "name": "Full moon brightness"
+      },
+      "moon_min": {
+        "name": "New moon brightness"
+      },
+      "cloud_probability": {
+        "name": "Cloud probability"
+      },
+      "cloud_max_per_day": {
+        "name": "Max. clouds per day"
+      },
+      "cloud_strength_min": {
+        "name": "Cloud strength min."
+      },
+      "cloud_strength_max": {
+        "name": "Cloud strength max."
+      },
+      "cloud_duration_min": {
+        "name": "Cloud duration min."
+      },
+      "cloud_duration_max": {
+        "name": "Cloud duration max."
+      },
+      "acclimation_days": {
+        "name": "Acclimation days"
+      },
+      "acclimation_reduction": {
+        "name": "Acclimation reduction"
+      },
+      "acclimation_current_day": {
+        "name": "Acclimation current day"
+      }
+    },
+    "time": {
+      "day_start": {
+        "name": "Day start"
+      },
+      "day_end": {
+        "name": "Day end"
+      },
+      "midday_start": {
+        "name": "Midday dimming start"
+      },
+      "midday_end": {
+        "name": "Midday dimming end"
+      },
+      "moon_start": {
+        "name": "Moonlight start"
+      },
+      "moon_end": {
+        "name": "Moonlight end"
+      }
+    },
+    "sensor": {
+      "module_temperature": {
+        "name": "Module temperature"
+      },
+      "output_white": {
+        "name": "Output white"
+      },
+      "output_blue": {
+        "name": "Output blue"
+      },
+      "output_red": {
+        "name": "Output red"
+      },
+      "output_green": {
+        "name": "Output green"
+      },
+      "next_cloud": {
+        "name": "Next cloud"
+      },
+      "moon_phase_day": {
+        "name": "Moon phase day"
+      },
+      "moon_intensity": {
+        "name": "Moonlight level"
+      },
+      "acclimation_day": {
+        "name": "Acclimation day"
+      },
+      "acclimation_level": {
+        "name": "Acclimation level"
+      },
+      "wifi_network": {
+        "name": "Wi-Fi"
+      }
+    },
+    "binary_sensor": {
+      "cloud_passing": {
+        "name": "Cloud passing"
+      }
+    },
+    "button": {
+      "preview_daycycle": {
+        "name": "Preview daycycle"
+      },
+      "sync_clock": {
+        "name": "Sync clock"
+      }
+    },
+    "text": {
+      "controller_name": {
+        "name": "Controller name"
+      }
+    },
+    "update": {
+      "firmware": {
+        "name": "Firmware"
+      }
+    }
+  },
+  "services": {
+    "save_favorite": {
+      "name": "Save favorite",
+      "description": "Stores a light colour mix in one of the 10 favourite slots.",
+      "fields": {
+        "slot": {
+          "name": "Slot",
+          "description": "1-10"
+        },
+        "name": {
+          "name": "Name",
+          "description": "Shown in the favourite list."
+        },
+        "channels": {
+          "name": "Channels",
+          "description": "White, blue, red, green in %. Default: current output."
+        }
+      }
+    },
+    "delete_favorite": {
+      "name": "Delete favorite",
+      "description": "Empties a favourite slot.",
+      "fields": {
+        "slot": {
+          "name": "Slot",
+          "description": "1-10"
+        }
+      }
+    },
+    "set_daycycle_curve": {
+      "name": "Set daycycle curve",
+      "description": "Writes a free-form curve (expert mode). Points: [minute, white, blue, red, green], from minute 0 to 1440.",
+      "fields": {
+        "points": {
+          "name": "Points",
+          "description": "List of [minute, white, blue, red, green]."
+        }
+      }
+    },
+    "preview_daycycle": {
+      "name": "Preview daycycle",
+      "description": "Plays the daycycle in fast motion, then restores the mode.",
+      "fields": {
+        "seconds": {
+          "name": "Duration",
+          "description": "Length of the preview in seconds."
+        },
+        "start": {
+          "name": "Start minute",
+          "description": "Minute of day to start from."
+        },
+        "end": {
+          "name": "End minute",
+          "description": "Minute of day to stop at."
+        }
+      }
+    }
+  }
+}

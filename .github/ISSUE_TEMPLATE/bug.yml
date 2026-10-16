@@ -1,0 +1,47 @@
+name: Bug report
+description: Something does not work as expected
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! Please check the existing issues first.
+        **Never post your Wi-Fi password or tokens.** The integration never logs them.
+  - type: input
+    id: version
+    attributes:
+      label: Integration version
+      placeholder: "0.3.3"
+    validations:
+      required: true
+  - type: input
+    id: ha
+    attributes:
+      label: Home Assistant version
+      placeholder: "2026.10.1"
+    validations:
+      required: true
+  - type: input
+    id: firmware
+    attributes:
+      label: SC25 firmware
+      description: Shown by the "Firmware" update entity, e.g. 10102
+  - type: input
+    id: lamp
+    attributes:
+      label: Connected lamp(s)
+      placeholder: "onex / matrix SLC / pendix ..."
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Debug log
+      description: |
+        Enable debug logging for `custom_components.daytime_sc25`, reproduce the
+        problem and paste the relevant part. The log contains the WebSocket frames.
+      render: text

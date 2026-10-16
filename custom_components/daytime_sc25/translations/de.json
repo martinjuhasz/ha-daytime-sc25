@@ -1,0 +1,306 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "description": "IP-Adresse oder Hostname des SC25.",
+        "data": {
+          "host": "Host"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Keine Verbindung zum Controller möglich."
+    },
+    "abort": {
+      "already_configured": "Dieser Controller ist bereits eingerichtet."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "manual_fallback_minutes": "Nach manueller Änderung zurück zum Tagesverlauf (Minuten, 0 = nie)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "light": {
+      "lamp": {
+        "name": "Lampe"
+      },
+      "channel_white": {
+        "name": "Weiß"
+      },
+      "channel_blue": {
+        "name": "Blau"
+      },
+      "channel_red": {
+        "name": "Rot"
+      },
+      "channel_green": {
+        "name": "Grün"
+      }
+    },
+    "select": {
+      "mode": {
+        "name": "Modus",
+        "state": {
+          "daycycle": "Tagesverlauf",
+          "manual": "Manuell"
+        }
+      },
+      "favorite": {
+        "name": "Favorit"
+      }
+    },
+    "switch": {
+      "moonlight": {
+        "name": "Mondlicht"
+      },
+      "clouds": {
+        "name": "Wolken"
+      },
+      "acclimation": {
+        "name": "Eingewöhnung"
+      },
+      "acclimation_pause": {
+        "name": "Eingewöhnung pausiert"
+      },
+      "moon_cycle": {
+        "name": "Mondphasen"
+      },
+      "moon_individual_times": {
+        "name": "Mondlicht eigene Zeiten"
+      },
+      "moon_white": {
+        "name": "Mondlicht Weiß"
+      },
+      "moon_blue": {
+        "name": "Mondlicht Blau"
+      },
+      "moon_red": {
+        "name": "Mondlicht Rot"
+      },
+      "moon_green": {
+        "name": "Mondlicht Grün"
+      },
+      "individual_intensities": {
+        "name": "Helligkeit je Lichtfarbe"
+      },
+      "sun_glow": {
+        "name": "Morgen-/Abendrot"
+      },
+      "midday_dimming": {
+        "name": "Mittagsabsenkung"
+      }
+    },
+    "number": {
+      "sunrise_duration": {
+        "name": "Dauer Sonnenaufgang"
+      },
+      "sunset_duration": {
+        "name": "Dauer Sonnenuntergang"
+      },
+      "day_intensity": {
+        "name": "Tageshelligkeit"
+      },
+      "day_intensity_white": {
+        "name": "Tageshelligkeit Weiß"
+      },
+      "day_intensity_blue": {
+        "name": "Tageshelligkeit Blau"
+      },
+      "day_intensity_red": {
+        "name": "Tageshelligkeit Rot"
+      },
+      "day_intensity_green": {
+        "name": "Tageshelligkeit Grün"
+      },
+      "midday_intensity": {
+        "name": "Helligkeit Mittagsabsenkung"
+      },
+      "sunrise_glow_duration": {
+        "name": "Dauer Morgenrot"
+      },
+      "sunrise_glow_intensity": {
+        "name": "Stärke Morgenrot"
+      },
+      "sunset_glow_duration": {
+        "name": "Dauer Abendrot"
+      },
+      "sunset_glow_intensity": {
+        "name": "Stärke Abendrot"
+      },
+      "moon_max": {
+        "name": "Helligkeit Vollmond"
+      },
+      "moon_min": {
+        "name": "Helligkeit Neumond"
+      },
+      "cloud_probability": {
+        "name": "Wolken-Wahrscheinlichkeit"
+      },
+      "cloud_max_per_day": {
+        "name": "Max. Wolken pro Tag"
+      },
+      "cloud_strength_min": {
+        "name": "Wolkenstärke min."
+      },
+      "cloud_strength_max": {
+        "name": "Wolkenstärke max."
+      },
+      "cloud_duration_min": {
+        "name": "Wolkendauer min."
+      },
+      "cloud_duration_max": {
+        "name": "Wolkendauer max."
+      },
+      "acclimation_days": {
+        "name": "Eingewöhnung Dauer"
+      },
+      "acclimation_reduction": {
+        "name": "Eingewöhnung Absenkung"
+      },
+      "acclimation_current_day": {
+        "name": "Eingewöhnung aktueller Tag"
+      }
+    },
+    "time": {
+      "day_start": {
+        "name": "Tagesbeginn"
+      },
+      "day_end": {
+        "name": "Tagesende"
+      },
+      "midday_start": {
+        "name": "Mittagsabsenkung Beginn"
+      },
+      "midday_end": {
+        "name": "Mittagsabsenkung Ende"
+      },
+      "moon_start": {
+        "name": "Mondlicht Beginn"
+      },
+      "moon_end": {
+        "name": "Mondlicht Ende"
+      }
+    },
+    "sensor": {
+      "module_temperature": {
+        "name": "Modultemperatur"
+      },
+      "output_white": {
+        "name": "Ausgang Weiß"
+      },
+      "output_blue": {
+        "name": "Ausgang Blau"
+      },
+      "output_red": {
+        "name": "Ausgang Rot"
+      },
+      "output_green": {
+        "name": "Ausgang Grün"
+      },
+      "next_cloud": {
+        "name": "Nächste Wolke"
+      },
+      "moon_phase_day": {
+        "name": "Mondphase Tag"
+      },
+      "moon_intensity": {
+        "name": "Mondlicht aktuell"
+      },
+      "acclimation_day": {
+        "name": "Eingewöhnungstag"
+      },
+      "acclimation_level": {
+        "name": "Eingewöhnung Helligkeit"
+      },
+      "wifi_network": {
+        "name": "WLAN"
+      }
+    },
+    "binary_sensor": {
+      "cloud_passing": {
+        "name": "Wolke zieht durch"
+      }
+    },
+    "button": {
+      "preview_daycycle": {
+        "name": "Tagesverlauf-Vorschau"
+      },
+      "sync_clock": {
+        "name": "Uhrzeit synchronisieren"
+      }
+    },
+    "text": {
+      "controller_name": {
+        "name": "Controller-Name"
+      }
+    },
+    "update": {
+      "firmware": {
+        "name": "Firmware"
+      }
+    }
+  },
+  "services": {
+    "save_favorite": {
+      "name": "Favorit speichern",
+      "description": "Speichert eine Lichtfarben-Mischung auf einem der 10 Favoriten-Plätze.",
+      "fields": {
+        "slot": {
+          "name": "Platz",
+          "description": "1–10"
+        },
+        "name": {
+          "name": "Name",
+          "description": "Wird in der Favoritenliste angezeigt."
+        },
+        "channels": {
+          "name": "Kanäle",
+          "description": "Weiß, Blau, Rot, Grün in %. Standard: aktuelle Ausgabe."
+        }
+      }
+    },
+    "delete_favorite": {
+      "name": "Favorit löschen",
+      "description": "Leert einen Favoriten-Platz.",
+      "fields": {
+        "slot": {
+          "name": "Platz",
+          "description": "1–10"
+        }
+      }
+    },
+    "set_daycycle_curve": {
+      "name": "Tageskurve setzen",
+      "description": "Schreibt eine freie Kurve (Expertenmodus). Punkte: [Minute, Weiß, Blau, Rot, Grün], von Minute 0 bis 1440.",
+      "fields": {
+        "points": {
+          "name": "Punkte",
+          "description": "Liste aus [Minute, Weiß, Blau, Rot, Grün]."
+        }
+      }
+    },
+    "preview_daycycle": {
+      "name": "Tagesverlauf-Vorschau",
+      "description": "Spielt den Tagesverlauf im Zeitraffer ab und stellt danach den Modus wieder her.",
+      "fields": {
+        "seconds": {
+          "name": "Dauer",
+          "description": "Länge der Vorschau in Sekunden."
+        },
+        "start": {
+          "name": "Startminute",
+          "description": "Minute des Tages, ab der abgespielt wird."
+        },
+        "end": {
+          "name": "Endminute",
+          "description": "Minute des Tages, bis zu der abgespielt wird."
+        }
+      }
+    }
+  }
+}

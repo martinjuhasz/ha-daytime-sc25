@@ -1,0 +1,18 @@
+{
+  "domain": "daytime_sc25",
+  "name": "daytime Smart Control SC25",
+  "codeowners": [
+    "@martinjuhasz"
+  ],
+  "config_flow": true,
+  "dependencies": [
+    "frontend",
+    "http"
+  ],
+  "documentation": "https://github.com/martinjuhasz/ha-daytime-sc25",
+  "integration_type": "device",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/martinjuhasz/ha-daytime-sc25/issues",
+  "requirements": [],
+  "version": "0.3.3"
+}

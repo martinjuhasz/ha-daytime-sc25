@@ -1,0 +1,41 @@
+name: Release
+
+# Push a tag like v0.4.0 to publish a release. HACS installs from releases,
+# so the tag must match the version in manifest.json.
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: GitHub release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check tag matches manifest version
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          manifest=$(python3 -c 'import json;print(json.load(open("custom_components/daytime_sc25/manifest.json"))["version"])')
+          card=$(grep -oP 'CARD_VERSION = "\K[^"]+' custom_components/daytime_sc25/frontend/daytime-sc25-card.js)
+          echo "tag=$tag manifest=$manifest card=$card"
+          test "$tag" = "$manifest"
+          test "$tag" = "$card"
+
+      - name: Extract release notes from CHANGELOG.md
+        run: |
+          awk -v v="${GITHUB_REF_NAME#v}" '
+            $0 ~ "^## \\[?" v "\\]?" {found=1; next}
+            found && /^## / {exit}
+            found {print}
+          ' CHANGELOG.md > notes.md
+          test -s notes.md || echo "See CHANGELOG.md" > notes.md
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes-file notes.md

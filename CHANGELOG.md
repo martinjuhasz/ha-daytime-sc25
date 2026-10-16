@@ -4,6 +4,13 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.3.4] - 2026-10-16
+
+### Changed
+
+- Info card: sunrise and sunset are marked above the 24 h light band with
+  their configured time ranges.
+
 ## [0.3.3] - 2026-10-16
 
 First public release.

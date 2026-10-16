@@ -14,7 +14,7 @@
  *   entity: light.sc25_12345678
  */
 
-const CARD_VERSION = "0.3.3";
+const CARD_VERSION = "0.3.4";
 
 const CHANNELS = [
   { key: "white", color: "#f1ead2", stroke: "#c9bb8a" },
@@ -984,6 +984,30 @@ class DaytimeSC25InfoCard extends DaytimeSC25Card {
         : t.i_paused_open;
     }
 
+    // Sunrise and sunset ramps, labelled above the band like the vendor app.
+    let ramps = "";
+    let rampBoxes = "";
+    if (attrs.day_start != null && attrs.day_end != null) {
+      const ramp = (cls, icon, a, b) => {
+        const left = Math.min(Math.max(a, 0), 1440) / 14.4;
+        const width = (Math.min(Math.max(b, a), 1440) - Math.min(Math.max(a, 0), 1440)) / 14.4;
+        const center = left + width / 2;
+        const anchor = center < 12 ? "start" : center > 88 ? "end" : "mid";
+        const pos = anchor === "start" ? `left:${left.toFixed(2)}%` : anchor === "end"
+          ? `right:${(100 - left - width).toFixed(2)}%` : `left:${center.toFixed(2)}%`;
+        const box = `left:${left.toFixed(2)}%;width:${width.toFixed(2)}%`;
+        return [
+          `<span class="ramp-label ${cls} ${anchor}" style="${pos}"><ha-icon icon="${icon}"></ha-icon>${fmtTime(a)}–${fmtTime(b)}</span>
+           <span class="ramp-mark ${cls}" style="${box}"></span>`,
+          `<span class="strip-ramp ${cls}" style="${box}"></span>`,
+        ];
+      };
+      const rise = ramp("rise", "mdi:weather-sunset-up", attrs.day_start, attrs.day_start + (attrs.sunrise_minutes || 0));
+      const set = ramp("set", "mdi:weather-sunset-down", attrs.day_end - (attrs.sunset_minutes || 0), attrs.day_end);
+      ramps = `<div class="ramps">${rise[0]}${set[0]}</div>`;
+      rampBoxes = rise[1] + set[1];
+    }
+
     root.innerHTML = `${STYLE}${INFO_STYLE}
       <ha-card class="info ${unavailable ? "unavailable" : ""}">
         <div class="ihead">
@@ -1005,8 +1029,10 @@ class DaytimeSC25InfoCard extends DaytimeSC25Card {
 
         ${curve.length >= 2 ? `
         <div class="strip-wrap">
+          ${ramps}
           <div class="strip ${isManual ? "paused" : ""}">
             <span class="strip-plan" style="background-image:${this._dayStrip(curve, channelCount)}"></span>
+            ${rampBoxes}
             ${manualSegs}
             <span class="strip-now" style="left:${nowPos}%"></span>
           </div>
@@ -1022,7 +1048,7 @@ class DaytimeSC25InfoCard extends DaytimeSC25Card {
 }
 
 const INFO_STYLE = `<style>
-  ha-card.info { gap: 16px; padding: 16px 16px 14px; --sc-night: #0d1420; }
+  ha-card.info { gap: 16px; padding: 16px 16px 14px; --sc-night: #0d1420; --rise: #f6b73c; --set: #f07f3c; }
   .ihead { display: flex; align-items: flex-start; gap: 12px; }
   .ititle { flex: 1; min-width: 0; }
   .itemp { display: inline-flex; align-items: center; gap: 2px; font-size: .875rem; color: var(--sc-muted); font-variant-numeric: tabular-nums; white-space: nowrap; padding-top: 2px; }
@@ -1064,6 +1090,25 @@ const INFO_STYLE = `<style>
     position: absolute; top: -4px; bottom: -4px; width: 3px; margin-left: -1.5px; border-radius: 2px;
     background: #fff; box-shadow: 0 0 0 1.5px var(--sc-night), 0 1px 4px rgba(0,0,0,.4);
   }
+  /* Sunrise/sunset: label with time range, bracket down onto the band. */
+  .ramps { position: relative; height: 28px; margin-bottom: -6px; }
+  .ramp-label {
+    position: absolute; top: 0; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;
+    font-size: .8rem; color: var(--primary-text-color); font-variant-numeric: tabular-nums;
+  }
+  .ramp-label.mid { transform: translateX(-50%); }
+  .ramp-label ha-icon { --mdc-icon-size: 18px; }
+  .ramp-label.rise ha-icon { color: var(--rise); }
+  .ramp-label.set ha-icon { color: var(--set); }
+  /* Short stem from the label down to the outlined ramp on the band. */
+  .ramp-mark { position: absolute; bottom: 0; height: 6px; display: flex; justify-content: center; }
+  .ramp-mark::after { content: ""; width: 2px; border-radius: 1px; background: var(--rise); }
+  .ramp-mark.set::after { background: var(--set); }
+  .strip-ramp {
+    position: absolute; top: -2px; bottom: -2px; min-width: 6px; margin-left: -1px; padding-right: 2px;
+    border-radius: 6px; box-shadow: inset 0 0 0 2px var(--rise), 0 0 10px -3px var(--rise);
+  }
+  .strip-ramp.set { box-shadow: inset 0 0 0 2px var(--set), 0 0 10px -3px var(--set); }
   .strip-axis { display: flex; justify-content: space-between; font-size: .7rem; color: var(--sc-muted); font-variant-numeric: tabular-nums; padding: 0 2px; }
   .next { display: flex; align-items: center; gap: 6px; font-size: .875rem; color: var(--primary-text-color); margin-top: 4px; }
   .next ha-icon { --mdc-icon-size: 16px; color: var(--sc-muted); }

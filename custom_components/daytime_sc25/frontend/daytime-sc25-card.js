@@ -14,7 +14,7 @@
  *   entity: light.sc25_12345678
  */
 
-const CARD_VERSION = "0.3.4";
+const CARD_VERSION = "0.3.5";
 
 const CHANNELS = [
   { key: "white", color: "#f1ead2", stroke: "#c9bb8a" },
@@ -394,8 +394,8 @@ class DaytimeSC25Card extends HTMLElement {
     const fw = this._state(ids.firmware);
     const parts = [
       wifi && wifi.state && !["unknown", "unavailable"].includes(wifi.state) ? this._esc(wifi.state) : "",
-      wifi && wifi.attributes.ip_address ? wifi.attributes.ip_address : "",
-      fw && fw.attributes.installed_version ? `FW ${fw.attributes.installed_version}` : "",
+      wifi && wifi.attributes.ip_address ? this._esc(wifi.attributes.ip_address) : "",
+      fw && fw.attributes.installed_version ? `FW ${this._esc(fw.attributes.installed_version)}` : "",
     ].filter(Boolean);
     return parts.length ? `<div class="ifooter"><ha-icon icon="mdi:wifi"></ha-icon>${parts.join(" · ")}</div>` : "";
   }
@@ -448,18 +448,18 @@ class DaytimeSC25Card extends HTMLElement {
   }
 
   _esc(v) {
-    return String(v).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+    return String(v).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
   }
 
   _row(row, disabled) {
-    const id = this._key(row.d, row.k);
-    const st = this._state(id);
+    const st = this._state(this._key(row.d, row.k));
     if (!st) return "";
     if (row.when) {
       const neg = row.when.startsWith("!");
       if (this._isOn(row.when.replace("!", "")) === neg) return "";
     }
-    const label = this._t[row.k] || st.attributes.friendly_name;
+    const id = this._esc(st.entity_id);
+    const label = this._esc(this._t[row.k] || st.attributes.friendly_name);
     const dis = disabled || st.state === "unavailable" ? "disabled" : "";
     let control = "";
     if (row.d === "switch") {
@@ -468,15 +468,15 @@ class DaytimeSC25Card extends HTMLElement {
     } else if (row.d === "number") {
       const a = st.attributes;
       const v = Number(st.state);
-      const unit = a.unit_of_measurement || "";
+      const unit = this._esc(a.unit_of_measurement || "");
       if (unit === "%") {
-        control = `<input type="range" class="mini" min="${a.min}" max="${a.max}" step="${a.step}" value="${isNaN(v) ? 0 : v}" data-number="${id}" aria-label="${label}" ${dis}>
+        control = `<input type="range" class="mini" min="${this._esc(a.min)}" max="${this._esc(a.max)}" step="${this._esc(a.step)}" value="${isNaN(v) ? 0 : v}" data-number="${id}" aria-label="${label}" ${dis}>
           <span class="value">${isNaN(v) ? "–" : Math.round(v)}<small>%</small></span>`;
       } else {
-        control = `<span class="numbox"><input type="number" min="${a.min}" max="${a.max}" step="${a.step}" value="${isNaN(v) ? "" : Math.round(v)}" data-number="${id}" aria-label="${label}" ${dis}><small>${unit}</small></span>`;
+        control = `<span class="numbox"><input type="number" min="${this._esc(a.min)}" max="${this._esc(a.max)}" step="${this._esc(a.step)}" value="${isNaN(v) ? "" : Math.round(v)}" data-number="${id}" aria-label="${label}" ${dis}><small>${unit}</small></span>`;
       }
     } else if (row.d === "time") {
-      const v = (st.state || "").slice(0, 5);
+      const v = this._esc((st.state || "").slice(0, 5));
       control = `<input type="time" value="${v}" data-time="${id}" aria-label="${label}" ${dis}>`;
     } else if (row.d === "button") {
       control = `<button class="action" data-press="${id}" ${dis}><ha-icon icon="mdi:play"></ha-icon>${this._t.play}</button>`;
@@ -505,7 +505,7 @@ class DaytimeSC25Card extends HTMLElement {
     const root = this.shadowRoot;
 
     if (!lamp) {
-      root.innerHTML = `${STYLE}<ha-card><div class="warning">${t.missing}: ${this._config.entity}</div></ha-card>`;
+      root.innerHTML = `${STYLE}<ha-card><div class="warning">${t.missing}: ${this._esc(this._config.entity)}</div></ha-card>`;
       return;
     }
 
@@ -519,7 +519,7 @@ class DaytimeSC25Card extends HTMLElement {
     for (const ch of activeChannels) values[ch.key] = this._pct(this._state(ids[ch.key]));
     const master = this._pct(lamp);
     const glow = this._glow(values);
-    const name = this._config.name || lamp.attributes.friendly_name || "SC25";
+    const name = this._esc(this._config.name || lamp.attributes.friendly_name || "SC25");
 
     let subtitle = unavailable ? t.unavailable : isManual ? t.manual : t.daycycle;
     if (!unavailable) subtitle += ` · ${master ? master + " %" : t.off}`;
@@ -533,7 +533,7 @@ class DaytimeSC25Card extends HTMLElement {
         <div class="channel" style="--ch:${ch.color}; --ch-stroke:${ch.stroke}">
           <span class="dot"></span>
           <span class="label">${t[ch.key]}</span>
-          <input type="range" min="0" max="100" step="1" value="${v}" data-light="${ids[ch.key]}" aria-label="${t[ch.key]}" ${unavailable ? "disabled" : ""}>
+          <input type="range" min="0" max="100" step="1" value="${v}" data-light="${this._esc(ids[ch.key])}" aria-label="${t[ch.key]}" ${unavailable ? "disabled" : ""}>
           <span class="value">${v}<small>%</small></span>
         </div>`;
       })
@@ -542,7 +542,7 @@ class DaytimeSC25Card extends HTMLElement {
     const effectChips = EFFECTS.filter((fx) => this._state(ids[fx.key]))
       .map((fx) => {
         const on = this._state(ids[fx.key]).state === "on";
-        return `<button class="chip ${on ? "on" : ""}" data-switch="${ids[fx.key]}" aria-pressed="${on}" ${unavailable ? "disabled" : ""}>
+        return `<button class="chip ${on ? "on" : ""}" data-switch="${this._esc(ids[fx.key])}" aria-pressed="${on}" ${unavailable ? "disabled" : ""}>
           <ha-icon icon="${fx.icon}"></ha-icon><span>${t[fx.key]}</span></button>`;
       })
       .join("");
@@ -557,11 +557,11 @@ class DaytimeSC25Card extends HTMLElement {
             <div class="name">${name}</div>
             <div class="subtitle">${subtitle}</div>
           </div>
-          ${temp && !isNaN(parseFloat(temp.state)) ? `<div class="badge" title="${temp.attributes.friendly_name || ""}"><ha-icon icon="mdi:thermometer"></ha-icon>${parseFloat(temp.state).toFixed(1)} °C</div>` : ""}
+          ${temp && !isNaN(parseFloat(temp.state)) ? `<div class="badge" title="${this._esc(temp.attributes.friendly_name || "")}"><ha-icon icon="mdi:thermometer"></ha-icon>${parseFloat(temp.state).toFixed(1)} °C</div>` : ""}
         </div>
 
         <div class="master">
-          <input type="range" min="0" max="100" step="1" value="${master}" data-light="${ids.lamp}" aria-label="${name}" ${unavailable ? "disabled" : ""}>
+          <input type="range" min="0" max="100" step="1" value="${master}" data-light="${this._esc(ids.lamp)}" aria-label="${name}" ${unavailable ? "disabled" : ""}>
         </div>
 
         ${mode ? `
@@ -895,7 +895,7 @@ class DaytimeSC25InfoCard extends DaytimeSC25Card {
     const lamp = this._state(ids.lamp);
     const root = this.shadowRoot;
     if (!lamp) {
-      root.innerHTML = `${STYLE}${INFO_STYLE}<ha-card><div class="warning">${t.missing}: ${this._config.entity}</div></ha-card>`;
+      root.innerHTML = `${STYLE}${INFO_STYLE}<ha-card><div class="warning">${t.missing}: ${this._esc(this._config.entity)}</div></ha-card>`;
       return;
     }
     const unavailable = lamp.state === "unavailable";
@@ -958,7 +958,7 @@ class DaytimeSC25InfoCard extends DaytimeSC25Card {
     const hints = [];
     if (attrs.expert_mode) hints.push(["mdi:chart-bell-curve", t.h_expert]);
     const fw = this._state(ids.firmware);
-    if (fw && fw.state === "on") hints.push(["mdi:update", t.h_update.replace("{v}", fw.attributes.latest_version || "")]);
+    if (fw && fw.state === "on") hints.push(["mdi:update", t.h_update.replace("{v}", () => this._esc(fw.attributes.latest_version || ""))]);
 
 
 

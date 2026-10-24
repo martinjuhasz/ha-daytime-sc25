@@ -4,6 +4,18 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.3.5] - 2026-10-24
+
+### Fixed
+
+- Cards: entity names, attributes and entity ids from the card configuration
+  are HTML-escaped before rendering, so markup in a friendly name no longer
+  ends up in the dashboard.
+
+### Changed
+
+- README: installation leads with searching for the integration in HACS.
+
 ## [0.3.4] - 2026-10-16
 
 ### Changed

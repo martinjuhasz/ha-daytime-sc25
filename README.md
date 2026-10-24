@@ -50,9 +50,12 @@ dashboard cards.
 
 ### HACS (recommended)
 
-1. HACS → ⋮ → *Custom repositories* → add
-   `https://github.com/martinjuhasz/ha-daytime-sc25` with type **Integration**.
-2. Install **daytime Smart Control SC25** and restart Home Assistant.
+1. Open HACS, search for **daytime Smart Control SC25** and install it.
+2. Restart Home Assistant.
+
+If the search finds nothing, add the repository first: HACS → ⋮ → *Custom
+repositories* → `https://github.com/martinjuhasz/ha-daytime-sc25` with type
+**Integration**.
 
 ### Manual
 

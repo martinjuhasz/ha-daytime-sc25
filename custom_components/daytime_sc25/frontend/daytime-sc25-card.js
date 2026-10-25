@@ -1019,11 +1019,12 @@ class DaytimeSC25InfoCard extends DaytimeSC25Card {
         </div>
 
         <div class="hero">
-          <div class="swatch-lg ${glow ? "lit" : ""}" style="${glow ? `--glow:${glow}` : ""}"></div>
+          <div class="orb ${glow ? "lit" : ""}" style="${glow ? `--glow:${glow}` : ""}" aria-hidden="true">
+            <ha-icon icon="mdi:${glow ? "lightbulb-on" : "lightbulb-outline"}"></ha-icon>
+          </div>
           <div class="hero-text">
-            <div class="hero-name">${nowMix && master ? nowMix.name : t.off}</div>
-            <div class="hero-sub">${master ? `${master} %` : ""}${nowMix && master ? ` · <span class="hex">${nowMix.hex}</span>` : ""}</div>
-            ${planDiffers ? `<div class="hero-plan"><span class="dot-mix" style="background:${planMix ? planMix.css : "transparent"}"></span>${t.i_plan}: ${planMix ? planMix.name : t.off}${planPeak ? ` · ${planPeak} %` : ""}</div>` : ""}
+            <div class="hero-level">${master ? `${master} %` : t.off}</div>
+            ${planDiffers ? `<div class="hero-plan"><span class="dot-mix" style="background:${planMix ? planMix.css : "transparent"}"></span>${t.i_plan}: ${planPeak ? `${planPeak} %` : t.off}</div>` : ""}
           </div>
         </div>
 
@@ -1055,22 +1056,9 @@ const INFO_STYLE = `<style>
   .itemp ha-icon { --mdc-icon-size: 16px; }
 
   .hero { display: flex; align-items: center; gap: 14px; }
-  /* A small "look into the tank": light falls in from the top onto dark water. */
-  .swatch-lg {
-    --glow: transparent;
-    flex: none; width: 56px; height: 56px; border-radius: 16px;
-    background: var(--sc-night); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
-  }
-  .swatch-lg.lit {
-    background:
-      radial-gradient(90% 70% at 50% 0%, color-mix(in srgb, var(--glow) 85%, white), transparent 75%),
-      linear-gradient(to bottom, var(--glow), color-mix(in srgb, var(--glow) 30%, var(--sc-night)));
-    box-shadow: 0 8px 24px -10px var(--glow), inset 0 0 0 1px rgba(255,255,255,.12);
-  }
+  .hero .orb { cursor: default; }
   .hero-text { min-width: 0; }
-  .hero-name { font-size: 1.35rem; font-weight: 500; line-height: 1.2; color: var(--primary-text-color); }
-  .hero-sub { font-size: .875rem; color: var(--sc-muted); margin-top: 2px; font-variant-numeric: tabular-nums; }
-  .hero-sub .hex { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .8rem; }
+  .hero-level { font-size: 1.35rem; font-weight: 500; line-height: 1.2; color: var(--primary-text-color); font-variant-numeric: tabular-nums; }
   .hero-plan { display: flex; align-items: center; gap: 6px; font-size: .8rem; color: var(--sc-muted); margin-top: 6px; }
   .dot-mix { width: 10px; height: 10px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--sc-line); flex: none; }
 

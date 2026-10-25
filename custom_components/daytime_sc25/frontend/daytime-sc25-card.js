@@ -14,7 +14,7 @@
  *   entity: light.sc25_12345678
  */
 
-const CARD_VERSION = "0.3.5";
+const CARD_VERSION = "0.3.6";
 
 const CHANNELS = [
   { key: "white", color: "#f1ead2", stroke: "#c9bb8a" },

@@ -4,6 +4,14 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.3.6] - 2026-10-25
+
+### Changed
+
+- Info card: the light badge is the same round, glowing orb as on the control
+  card, and next to it only the brightness is shown – no colour name or hex
+  value. The scheduled line shows just the planned level.
+
 ## [0.3.5] - 2026-10-24
 
 ### Fixed
